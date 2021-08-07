@@ -1,0 +1,25 @@
+Lab Week 5 
+Text for Lab Question
+
+# Define sentences for the question
+sentex1 = "I prefer a flight through Houston".split()
+sentex2 = "Jack walked with the dog".split()
+sentex3 = "John gave the dog a bone".split()
+sentex4 = "I want to book that flight".split()
+
+# extend the flight grammar:
+flight_grammar = nltk.CFG.fromstring("""
+  S -> NP VP | VP
+  VP -> V NP | V NP PP
+  PP -> P NP
+  V -> "saw" | "ate" | "walked" | "shot" | "book"
+  NP -> Prop | Det N | Det N PP
+  Prop -> "John" | "Mary" | "Bob" | "I"
+  Det -> "a" | "an" | "the" | "my" | "that"
+  N -> "man" | "dog" | "cat" | "telescope" | "park" | "elephant" | "pajamas" | "flight"
+  P -> "in" | "on" | "by" | "with"
+  """)
+
+# redefine rd_parser when you change the flight grammar
+rd_parser = nltk.RecursiveDescentParser(flight_grammar)
+for tree in rd_parser.parse(sentex1):   print (tree)
